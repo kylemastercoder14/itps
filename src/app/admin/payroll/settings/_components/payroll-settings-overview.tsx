@@ -261,16 +261,20 @@ function DeductionsTab() {
     >
       <StandardTable
         columns={["Deduction Name", "Category", "Type", "Calculation Method", "Cap / Limit", "Taxable", "Status", "Actions"]}
-        rows={PAYROLL_SETTINGS_DEDUCTION_DATA.map((item) => [
-          <NameCell key="name" name={item.name} description={item.description} tone={item.tone} />,
-          <Tag key="category" label={item.category} tone={item.category === "Loans" ? "orange" : item.category === "Other" ? "slate" : "blue"} />,
-          item.type,
-          item.method,
-          item.cap,
-          <Tag key="taxable" label={item.taxable} tone={item.taxable === "Yes" ? "green" : "red"} />,
-          <Tag key="status" label={item.status} tone="green" />,
-          <RowActions key="actions" />,
-        ])}
+        rows={PAYROLL_SETTINGS_DEDUCTION_DATA.map((item) => {
+          const taxable = item.taxable as string
+
+          return [
+            <NameCell key="name" name={item.name} description={item.description} tone={item.tone} />,
+            <Tag key="category" label={item.category} tone={item.category === "Loans" ? "orange" : item.category === "Other" ? "slate" : "blue"} />,
+            item.type,
+            item.method,
+            item.cap,
+            <Tag key="taxable" label={taxable} tone={taxable === "Yes" ? "green" : "red"} />,
+            <Tag key="status" label={item.status} tone="green" />,
+            <RowActions key="actions" />,
+          ]
+        })}
       />
     </DataTabLayout>
   )
