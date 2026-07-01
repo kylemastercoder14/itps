@@ -43,6 +43,10 @@ import {
   TableRow,
 } from "@/components/ui/table";
 
+const ATTENDANCE_KPI_TREND: Record<string, "up" | "down"> = {
+  "Late (Tardy)": "down",
+};
+
 export function AttendanceOverview() {
   return (
     <div className="flex flex-col gap-4">
@@ -114,7 +118,7 @@ function AttendanceKpis() {
                 {item.value}
               </p>
             </div>
-            <MiniSparkline tone={item.trend === "down" ? "down" : "up"} />
+            <MiniSparkline tone={ATTENDANCE_KPI_TREND[item.title] ?? "up"} />
           </div>
         </Card>
       ))}

@@ -46,7 +46,7 @@ export const ADMIN_NAVIGATION_DATA = [
       { label: "Run Payroll", href: "/admin/payroll/run" },
       { label: "Payslips", href: "/admin/payroll/payslips" },
       { label: "Leave Encashment", href: "/admin/payroll/leave-encashment" },
-      { label: "Payroll Settings", href: "/admin/payroll/settings" },
+      // { label: "Payroll Settings", href: "/admin/payroll/settings" },
     ],
   },
   {
@@ -1153,7 +1153,7 @@ export const PAYROLL_DEDUCTIONS_DATA = [
 ] as const
 
 export const PAYROLL_SUMMARY_DETAILS = [
-  ["Payroll Name", "Monthly Payroll - May 2026"],
+  ["Payroll Name", "May 2026"],
   ["Pay Period", "May 1 - May 31, 2026"],
   ["Payment Date", "June 5, 2026"],
   ["Pay Type", "Regular Payroll"],
