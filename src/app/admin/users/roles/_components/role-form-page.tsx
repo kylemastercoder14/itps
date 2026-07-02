@@ -27,6 +27,7 @@ import { Switch } from "@/components/ui/switch"
 import { Textarea } from "@/components/ui/textarea"
 import { cn } from "@/lib/utils"
 import { PermissionsTable } from "./roles-overview"
+import { IconShieldCheckFilled } from "@tabler/icons-react"
 
 type RoleFormPageProps = {
   roleId: string
@@ -62,7 +63,7 @@ export function RoleFormPage({ roleId, mode }: RoleFormPageProps) {
       <div className="flex items-center justify-between">
         <div className="flex items-center gap-2">
           <Link href="/admin/users/roles">
-            <ShieldCheck className="size-4 text-zinc-900" />
+            <IconShieldCheckFilled className="size-4 text-zinc-900" />
           </Link>
           <ChevronRight className="size-4 text-zinc-500" />
           <h1 className="text-lg font-bold tracking-tight text-zinc-950">
