@@ -5,34 +5,34 @@ import {
   ShieldCheck,
   Users,
   X,
-} from "lucide-react"
-import Link from "next/link"
+} from "lucide-react";
+import Link from "next/link";
 
 import {
   ROLE_MANAGEMENT_ROLES,
   ROLE_PERMISSION_SUMMARY,
   ROLE_QUICK_ACTIONS,
-} from "@/constants/admin-dashboard"
-import { Button } from "@/components/ui/button"
-import { Card } from "@/components/ui/card"
-import { Input } from "@/components/ui/input"
+} from "@/constants/admin-dashboard";
+import { Button } from "@/components/ui/button";
+import { Card } from "@/components/ui/card";
+import { Input } from "@/components/ui/input";
 import {
   Select,
   SelectContent,
   SelectItem,
   SelectTrigger,
   SelectValue,
-} from "@/components/ui/select"
-import { Switch } from "@/components/ui/switch"
-import { Textarea } from "@/components/ui/textarea"
-import { cn } from "@/lib/utils"
-import { PermissionsTable } from "./roles-overview"
-import { IconShieldCheckFilled } from "@tabler/icons-react"
+} from "@/components/ui/select";
+import { Switch } from "@/components/ui/switch";
+import { Textarea } from "@/components/ui/textarea";
+import { cn } from "@/lib/utils";
+import { PermissionsTable } from "./roles-overview";
+import { IconShieldCheckFilled } from "@tabler/icons-react";
 
 type RoleFormPageProps = {
-  roleId: string
-  mode: "create" | "update"
-}
+  roleId: string;
+  mode: "create" | "update";
+};
 
 const TONE_SOLID = {
   violet: "bg-violet-600",
@@ -41,7 +41,7 @@ const TONE_SOLID = {
   orange: "bg-orange-500",
   cyan: "bg-cyan-500",
   slate: "bg-slate-500",
-} as const
+} as const;
 
 const SUMMARY_TONE = {
   cyan: "bg-cyan-50 text-cyan-700",
@@ -50,13 +50,13 @@ const SUMMARY_TONE = {
   blue: "bg-blue-50 text-blue-700",
   red: "bg-red-50 text-red-700",
   orange: "bg-orange-50 text-orange-700",
-} as const
+} as const;
 
 export function RoleFormPage({ roleId, mode }: RoleFormPageProps) {
   const role =
     ROLE_MANAGEMENT_ROLES.find((item) => item.id === roleId) ??
-    ROLE_MANAGEMENT_ROLES[0]
-  const isCreate = mode === "create"
+    ROLE_MANAGEMENT_ROLES[0];
+  const isCreate = mode === "create";
 
   return (
     <div className="flex flex-col gap-5">
@@ -71,143 +71,177 @@ export function RoleFormPage({ roleId, mode }: RoleFormPageProps) {
           </h1>
         </div>
         <div className="flex items-center gap-2">
-          <Button variant="secondary" className="rounded-lg bg-zinc-200 px-3 text-xs font-semibold text-zinc-800 hover:bg-zinc-300">
+          <Button
+            variant="secondary"
+            className="rounded-lg bg-zinc-200 px-3 text-xs font-semibold text-zinc-800 hover:bg-zinc-300"
+          >
             Cancel
           </Button>
           <Button className="rounded-lg bg-zinc-900 px-4 text-xs font-semibold text-white shadow-sm hover:bg-zinc-800">
-            <Users className="size-4" />
             {isCreate ? "Create Role" : "Update Role"}
           </Button>
         </div>
       </div>
-    <div className="grid gap-5 xl:grid-cols-[1fr_21rem]">
-      <main className="space-y-5">
-        <Card className="rounded-lg border-slate-200 p-6 shadow-sm">
-          <h1 className="font-bold text-slate-950">Role Information</h1>
-          <p className="mt-1 text-sm text-slate-500">
-            Enter basic details of role.
-          </p>
-          <div className="mt-6 grid gap-5 md:grid-cols-2">
-            <FormField label="Role Name" required>
-              <Input defaultValue={isCreate ? "" : role.name} placeholder="e.g., Finance Manager" className="h-11" />
-            </FormField>
-            <FormField label="Role Code" required help="Unique code for this role">
-              <Input defaultValue={isCreate ? "" : role.id.toUpperCase().replaceAll("-", "_")} placeholder="e.g., FIN_MANAGER" className="h-11" />
-            </FormField>
-            <div className="md:col-span-2">
-              <FormField label="Description" help="Provide a clear description of what this role does">
-                <Textarea defaultValue={isCreate ? "" : role.description} placeholder="e.g., Manages financial operations, payroll, and reports" className="min-h-24" />
-                <p className="mt-1 text-right text-xs text-slate-500">0/255</p>
+      <div className="grid gap-5 xl:grid-cols-[1fr_21rem]">
+        <main className="space-y-5">
+          <Card className="rounded-xl gap-0! border-zinc-200 px-5 py-4 shadow-xs">
+            <h1 className="font-bold text-slate-950">Role Information</h1>
+            <p className="mt-1 text-xs text-slate-500">
+              Enter basic details of role.
+            </p>
+            <div className="mt-6 grid items-start gap-3 md:grid-cols-2">
+              <FormField label="Role Name" required>
+                <Input
+                  defaultValue={isCreate ? "" : role.name}
+                  placeholder="e.g., Finance Manager"
+                  className="text-xs! h-9! rounded-sm bg-transparent! border-zinc-200"
+                />
+              </FormField>
+              <FormField
+                label="Role Code"
+                required
+                help="Unique code for this role"
+              >
+                <Input
+                  defaultValue={
+                    isCreate ? "" : role.id.toUpperCase().replaceAll("-", "_")
+                  }
+                  placeholder="e.g., FIN_MANAGER"
+                  className="text-xs! h-9! rounded-sm bg-transparent! border-zinc-200"
+                />
+              </FormField>
+              <div className="md:col-span-2">
+                <FormField
+                  label="Description"
+                  help="Provide a clear description of what this role does"
+                >
+                  <Textarea
+                    defaultValue={isCreate ? "" : role.description}
+                    placeholder="e.g., Manages financial operations, payroll, and reports"
+                    className="min-h-24 text-xs!"
+                  />
+                </FormField>
+              </div>
+              <FormField label="Role Category">
+                <SelectField
+                  value="category"
+                  options={[
+                    "Select category",
+                    "Administrative",
+                    "Payroll",
+                    "HR",
+                    "Department",
+                  ]}
+                />
               </FormField>
             </div>
-            <FormField label="Role Category">
-              <SelectField value="category" options={["Select category", "Administrative", "Payroll", "HR", "Department"]} />
-            </FormField>
-            <div className="grid gap-2">
-              <span className="text-sm font-semibold text-slate-800">Status</span>
+            <div className="grid mt-3 gap-2">
+              <span className="text-xs font-semibold text-slate-800">
+                Status
+              </span>
               <div className="flex items-center gap-3">
                 <Switch defaultChecked={isCreate || role.status === "Active"} />
-                <span className="text-sm font-semibold text-emerald-700">Active</span>
+                <span className="text-xs font-semibold">Active</span>
               </div>
-              <span className="text-xs text-slate-500">Inactive roles cannot be assigned to users</span>
+              <span className="text-xs text-slate-500">
+                Inactive roles cannot be assigned to users
+              </span>
             </div>
-          </div>
-        </Card>
+          </Card>
 
-        <Card className="rounded-lg border-slate-200 p-6 shadow-sm">
-          <div className="flex flex-wrap items-center justify-between gap-3">
-            <div>
-              <h2 className="font-bold">Assign Permissions</h2>
-              <p className="mt-1 text-sm text-slate-500">
-                Select permissions available for this role.
-              </p>
+          <Card className="rounded-xl border-zinc-200 px-5 py-4 shadow-xs">
+            <div className="flex flex-wrap items-center justify-between gap-3">
+              <div>
+                <h2 className="font-bold">Assign Permissions</h2>
+                <p className="mt-1 text-xs text-slate-500">
+                  Select permissions available for this role.
+                </p>
+              </div>
+              <div className="flex gap-2">
+                <Button variant="outline" className="text-xs">
+                  Expand All
+                </Button>
+                <Button variant="outline" className="text-xs">
+                  Deselect All
+                </Button>
+              </div>
             </div>
-            <div className="flex gap-2">
-              <Button variant="outline" className="text-blue-600">Expand All</Button>
-              <Button variant="outline" className="text-blue-600">Deselect All</Button>
-            </div>
-          </div>
-          <PermissionsTable />
-        </Card>
+            <PermissionsTable />
+          </Card>
 
-        <Card className="rounded-lg border-blue-100 bg-blue-50 p-5 text-blue-800 shadow-sm">
-          <h3 className="font-bold">About Permissions</h3>
-          <p className="mt-2 text-sm">
-            These permissions control what actions users in this role can perform across system.
-          </p>
-        </Card>
-
-        <div className="flex flex-wrap justify-between gap-3">
-          <Button variant="outline">
-            <X className="size-4" />
-            Cancel
-          </Button>
-          <Button className="bg-zinc-900 hover:bg-zinc-800">
-            <Users className="size-4" />
-            {isCreate ? "Create Role" : "Update Role"}
-          </Button>
-        </div>
-      </main>
-      <aside className="space-y-5">
-        <RoleSummaryCard role={role} isCreate={isCreate} />
-        <PermissionSummaryCard />
-        <QuickActionsCard />
-        <HelpCard />
-      </aside>
+          <Card className="rounded-xl gap-0! border-zinc-100 bg-zinc-50 px-5 py-4 shadow-xs">
+            <h3 className="font-bold">About Permissions</h3>
+            <p className="mt-1 text-xs">
+              These permissions control what actions users in this role can
+              perform across system.
+            </p>
+          </Card>
+        </main>
+        <aside className="space-y-5">
+          <RoleSummaryCard role={role} isCreate={isCreate} />
+          <PermissionSummaryCard />
+        </aside>
+      </div>
     </div>
-    </div>
-  )
+  );
 }
 
 function RoleSummaryCard({
   role,
   isCreate,
 }: {
-  role: (typeof ROLE_MANAGEMENT_ROLES)[number]
-  isCreate: boolean
+  role: (typeof ROLE_MANAGEMENT_ROLES)[number];
+  isCreate: boolean;
 }) {
   return (
-    <Card className="rounded-lg border-slate-200 p-5 shadow-sm">
+    <Card className="rounded-xl border-zinc-200 px-5 py-4 shadow-xs">
       <h3 className="font-bold">Role Summary</h3>
-      <div className="mt-5 flex items-center gap-3">
-        <span className={cn("flex size-11 items-center justify-center rounded-full text-white", TONE_SOLID[role.tone])}>
-          <ShieldCheck className="size-5" />
-        </span>
+      <div className="flex items-center gap-3">
         <div>
           <p className="font-bold">{isCreate ? "New Role" : role.name}</p>
-          <span className="rounded-md bg-emerald-50 px-2 py-1 text-xs font-semibold text-emerald-700">Active</span>
+          <span className="rounded-md bg-green-50 px-2 py-1 text-xs font-semibold text-green-700">
+            Active
+          </span>
         </div>
       </div>
-      <div className="mt-5 space-y-4 border-t pt-5 text-sm">
+      <div className="space-y-4 border-t pt-5 text-xs">
         <PreviewLine label="Role Name" value={isCreate ? "-" : role.name} />
-        <PreviewLine label="Role Code" value={isCreate ? "-" : role.id.toUpperCase().replaceAll("-", "_")} />
+        <PreviewLine
+          label="Role Code"
+          value={isCreate ? "-" : role.id.toUpperCase().replaceAll("-", "_")}
+        />
         <PreviewLine label="Category" value="-" />
-        <PreviewLine label="Description" value={isCreate ? "-" : role.description} />
+        <PreviewLine
+          label="Description"
+          value={isCreate ? "-" : role.description}
+        />
         <PreviewLine label="Permissions" value="0 selected" />
       </div>
     </Card>
-  )
+  );
 }
 
 function PermissionSummaryCard() {
   return (
-    <Card className="rounded-lg border-slate-200 p-5 shadow-sm">
+    <Card className="rounded-xl border-zinc-200 px-5 py-4 shadow-xs">
       <h3 className="font-bold">Permission Summary</h3>
-      <div className="mt-5 space-y-4">
+      <div className="space-y-3.5">
         {ROLE_PERMISSION_SUMMARY.map((item) => (
-          <div key={item.label} className="flex items-center justify-between gap-3">
+          <div
+            key={item.label}
+            className="flex items-center justify-between gap-3"
+          >
             <span className="flex items-center gap-3">
-              <span className={cn("flex size-8 items-center justify-center rounded-full", SUMMARY_TONE[item.tone])}>
-                <ShieldCheck className="size-4" />
+              <span className="text-xs font-semibold text-slate-700">
+                {item.label}
               </span>
-              <span className="text-sm font-semibold text-slate-700">{item.label}</span>
             </span>
-            <span className="font-bold">{item.value}</span>
+            <span className="font-bold text-xs">{item.value}</span>
           </div>
         ))}
       </div>
     </Card>
-  )
+  );
 }
 
 function QuickActionsCard() {
@@ -228,7 +262,7 @@ function QuickActionsCard() {
         ))}
       </div>
     </Card>
-  )
+  );
 }
 
 function HelpCard() {
@@ -241,11 +275,13 @@ function HelpCard() {
           <p className="mt-2 text-sm text-blue-700">
             Learn more about roles, permissions, and access control.
           </p>
-          <Button variant="outline" className="mt-4 bg-white text-blue-600">View Help Center</Button>
+          <Button variant="outline" className="mt-4 bg-white text-blue-600">
+            View Help Center
+          </Button>
         </div>
       </div>
     </Card>
-  )
+  );
 }
 
 function FormField({
@@ -254,20 +290,18 @@ function FormField({
   help,
   children,
 }: {
-  label: string
-  required?: boolean
-  help?: string
-  children: React.ReactNode
+  label: string;
+  required?: boolean;
+  help?: string;
+  children: React.ReactNode;
 }) {
   return (
     <label className="grid gap-2">
-      <span className="text-sm font-semibold text-slate-800">
-        {label} {required ? <span className="text-red-500">*</span> : null}
-      </span>
+      <span className="text-xs font-semibold text-slate-800"></span>
       {children}
-      {help ? <span className="text-xs text-slate-500">{help}</span> : null}
+      {help ? <span className="text-[10px] text-slate-500">{help}</span> : null}
     </label>
-  )
+  );
 }
 
 function PreviewLine({ label, value }: { label: string; value: string }) {
@@ -276,13 +310,13 @@ function PreviewLine({ label, value }: { label: string; value: string }) {
       <p className="text-xs font-semibold text-slate-500">{label}</p>
       <p className="font-semibold text-slate-900">{value}</p>
     </div>
-  )
+  );
 }
 
 function SelectField({ value, options }: { value: string; options: string[] }) {
   return (
     <Select defaultValue={value}>
-      <SelectTrigger className="h-11 w-full">
+      <SelectTrigger className="h-9 w-full text-xs">
         <SelectValue />
       </SelectTrigger>
       <SelectContent>
@@ -293,5 +327,5 @@ function SelectField({ value, options }: { value: string; options: string[] }) {
         ))}
       </SelectContent>
     </Select>
-  )
+  );
 }

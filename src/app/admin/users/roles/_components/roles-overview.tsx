@@ -347,7 +347,7 @@ function HelpCard() {
 
 function PermissionCell({ checked }: { checked: boolean }) {
   return (
-    <TableCell className="text-center">
+    <TableCell className="text-center text-xs">
       {checked ? (
         <Checkbox defaultChecked />
       ) : (
